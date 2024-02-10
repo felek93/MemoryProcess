@@ -1,11 +1,11 @@
-#include "MemoryProcess.h"
+#include "MemoryProcess.hpp"
 
 #include <windows.h>
 #include <string>
 #include <TlHelp32.h>
 #include <vector>
 
-MemoryProcess::MemoryProcess(std::string pName, int baseAddres) : appBaseMemory(baseAddres), hProcess(nullptr), memoryAddress(0)
+MemoryProcess::MemoryProcess(std::string_view pName, int baseAddres) : appBaseMemory(baseAddres), hProcess(nullptr), memoryAddress(0)
 {
     processName = pName;
 }

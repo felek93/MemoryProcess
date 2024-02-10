@@ -7,7 +7,7 @@
 class MemoryProcess 
 {
 public:
-    MemoryProcess(std::string pName, int baseAddres);
+    MemoryProcess(std::string_view pName, int baseAddres);
     bool OpenMemoryProcess();
     bool Read(int offset, void* buffer, size_t bytesToRead);
 

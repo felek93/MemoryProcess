@@ -5,7 +5,7 @@
 #include <TlHelp32.h>
 #include <vector>
 
-MemoryProcess::MemoryProcess(std::string_view pName, int baseAddres) : appBaseMemory(baseAddres), hProcess(nullptr), memoryAddress(0)
+MemoryProcess::MemoryProcess(std::string_view pName, int baseAddres) : appBaseMemory{baseAddres}, hProcess{nullptr}, memoryAddress{0}
 {
     processName = pName;
 }
@@ -13,12 +13,11 @@ MemoryProcess::MemoryProcess(std::string_view pName, int baseAddres) : appBaseMe
 bool MemoryProcess::OpenMemoryProcess()
 {
     DWORD procId = GetProcId();
-    uintptr_t moduleBase = GetModuleBaseAddress(procId);
     hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, procId);
 
     if (!Read(appBaseMemory, &memoryAddress, sizeof(memoryAddress)))
     {
-        std::cout << "Error: " << std::dec << GetLastError() << std::endl;
+        std::cerr << "Error: " << std::dec << GetLastError() << std::endl;
         return false;
     }
     return true;
@@ -28,7 +27,7 @@ bool MemoryProcess::Read(int offset, void* buffer, size_t bytesToRead)
 {
     if (hProcess != nullptr)
     {
-        uintptr_t memoryPointer = memoryAddress + offset;
+        uintptr_t memoryPointer = static_cast<uintptr_t>(memoryAddress + offset);
         return ReadProcessMemory(hProcess, (LPCVOID)memoryPointer, buffer, bytesToRead, 0) ? true : false;
     }
     return false;

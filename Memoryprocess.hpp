@@ -15,10 +15,10 @@ private:
     DWORD GetProcId();
     uintptr_t GetModuleBaseAddress(DWORD proc);
 
-    std::string processName;
+    const int appBaseMemory;
     HANDLE hProcess;
     int memoryAddress;
-    const int appBaseMemory;
+    std::string processName;
 };
 
 #endif // MEMORY_PROCESS_H_

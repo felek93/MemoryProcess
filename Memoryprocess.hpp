@@ -8,7 +8,8 @@ class MemoryProcess
 {
 public:
     MemoryProcess(std::string_view pName, int baseAddres);
-    bool OpenMemoryProcess();
+    bool OpenMemoryProcess(void);
+    DWORD GetError(void);
     bool Read(int offset, void* buffer, size_t bytesToRead);
 
 private:

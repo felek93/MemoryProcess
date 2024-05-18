@@ -15,12 +15,12 @@ bool MemoryProcess::OpenMemoryProcess()
     DWORD procId = GetProcId();
     hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, procId);
 
-    if (!Read(appBaseMemory, &memoryAddress, sizeof(memoryAddress)))
-    {
-        std::cerr << "Error: " << std::dec << GetLastError() << std::endl;
-        return false;
-    }
-    return true;
+    return Read(appBaseMemory, &memoryAddress, sizeof(memoryAddress));
+}
+
+DWORD MemoryProcess::GetError(void)
+{
+    return GetLastError();
 }
 
 bool MemoryProcess::Read(int offset, void* buffer, size_t bytesToRead)
